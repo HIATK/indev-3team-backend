@@ -1,4 +1,4 @@
-package _3team.indev3teambackend.ChatRoom.entity;
+package _3team.indev3teambackend.ChatMessage.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,23 +11,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "chat_room")
-public class ChatRoomEntity {
+@Table(name = "chat_messages")
+public class ChatMessagesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",updatable = false)
     private Long id;
 
+    @Column(name = "chat_messages_id",updatable = true)
+    private Long chatMessagesId;
 
-    @Column(name = "user_id",updatable = false)
-    private Long userId;
+    @Column(name = "content",updatable = true)
+    private String content;
 
     @Column(name = "created_at",updatable = false)
     private LocalDateTime createAt;
-
-    @PrePersist
-    public void OnPrePersist() {
-        this.createAt = LocalDateTime.now();
-    }
 }
