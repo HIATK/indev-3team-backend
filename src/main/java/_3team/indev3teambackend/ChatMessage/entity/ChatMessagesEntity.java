@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "chat_messages")
 public class ChatMessagesEntity {
 
     @Id
@@ -24,6 +25,6 @@ public class ChatMessagesEntity {
     @Column(name = "content",updatable = true)
     private String content;
 
-    @Column(name = "create_at",updatable = false)
+    @Column(name = "created_at",updatable = false)
     private LocalDateTime createAt;
 }
