@@ -21,7 +21,7 @@ public class ChatRoomController {
     //새로운 채팅방 생성 메서드
     //POST -> /api/chat_rooms/{userid}
     @PostMapping("/{userId}")
-    public ChatRoomDto createChatRoom(@PathVariable Long userId){
+    public ChatRoomDto createChatRoom(@PathVariable Long userId)    {
         return chatRoomService.createChatRoom(userId);
     }
 
