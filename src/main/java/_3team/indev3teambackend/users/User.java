@@ -1,19 +1,21 @@
 package _3team.indev3teambackend.users;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+// 엔티티
 @Entity
 @Table(name = "users")
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "providerId", nullable = false, unique = true)
@@ -45,7 +47,6 @@ public class User {
 
     public void changeProviderIdEmail(String providerIdEmail) { 
         this.providerIdEmail = providerIdEmail; 
-
     }
 
     public void changeName(String name) { 
