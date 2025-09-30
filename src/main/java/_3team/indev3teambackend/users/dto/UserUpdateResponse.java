@@ -2,6 +2,8 @@ package _3team.indev3teambackend.users.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+
 import _3team.indev3teambackend.users.User;
 
 // 사용자 정보 수정 DTO
@@ -10,29 +12,17 @@ import _3team.indev3teambackend.users.User;
     "name": "엄준식",
     "imagePath": "/path/to/image.jpg"
 } */
+@Getter
 public class UserUpdateResponse {
 
     private final Long id;
     private final String name;
-    private final String profileImageUrl;
+    @JsonProperty("imagePath") private final String profileImageUrl;
 
     public UserUpdateResponse(Long id, String name, String profileImageUrl) {
         this.id = id;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty("imagePath")
-    public String getProfileImageUrl() {
-        return profileImageUrl;
     }
 
     public static UserUpdateResponse from(User u) {
@@ -42,4 +32,5 @@ public class UserUpdateResponse {
             u.getProfileImageUrl()
         );
     }
+
 }

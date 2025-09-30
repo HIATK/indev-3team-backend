@@ -1,10 +1,13 @@
 package _3team.indev3teambackend.users.dto;
 
+import lombok.Getter;
+
 // 신규 사용자 응답 DTO
 /* Response: {
     "success": true,
     "id": 1
 } */
+@Getter
 public class UserCreateResponse {
 
     private final boolean success;
@@ -14,8 +17,5 @@ public class UserCreateResponse {
         this.success = success;
         this.id = id;
     }
-
-    public boolean getSuccess() { return success; }
-
-    public Long getId() { return id; }
+    
 }

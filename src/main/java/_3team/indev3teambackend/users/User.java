@@ -9,9 +9,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 // 엔티티
 @Entity
+@Getter
 @Table(name = "users")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id 
@@ -35,18 +41,11 @@ public class User {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
-    protected User() {
-    }
-
     public User(String providerId, String providerIdEmail, String name, String profileImageUrl) {
         this.providerId = providerId;
         this.providerIdEmail = providerIdEmail;
         this.name = name;
         this.profileImageUrl = profileImageUrl;
-    }
-
-    public void changeProviderIdEmail(String providerIdEmail) { 
-        this.providerIdEmail = providerIdEmail; 
     }
 
     public void changeName(String name) { 
@@ -55,34 +54,6 @@ public class User {
 
     public void changeProfileImageUrl(String profileImageUrl) { 
         this.profileImageUrl = profileImageUrl; 
-    }
-
-    public Long getId() { 
-        return id; 
-    }
-
-    public String getProviderId() { 
-        return providerId; 
-    }
-
-    public String getProviderIdEmail() { 
-        return providerIdEmail; 
-    }
-
-    public String getName() {
-        return name; 
-    }
-
-    public String getProfileImageUrl() { 
-        return profileImageUrl; 
-    }
-
-    public LocalDateTime getCreatedAt() { 
-        return createdAt; 
-    }
-
-    public LocalDateTime getUpdatedAt() { 
-        return updatedAt; 
     }
 
 }
