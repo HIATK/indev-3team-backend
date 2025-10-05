@@ -6,8 +6,8 @@ import _3team.indev3teambackend.ChatMessage.repository.ChatMessagesRepository;
 import _3team.indev3teambackend.ChatRoom.entity.ChatRoomEntity;
 import _3team.indev3teambackend.ChatRoom.repository.ChatRoomRepository;
 import _3team.indev3teambackend.ChatRoom.service.ChatRoomService;
-import _3team.indev3teambackend.DummyUser.EntityDummy.DummyEntity;
-import _3team.indev3teambackend.DummyUser.repository.DummyUserRepository;
+import _3team.indev3teambackend.users.entity.User;
+import _3team.indev3teambackend.users.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class ChatMessagesService {
 
     private final ChatMessagesRepository chatMessagesRepository;
     private final ChatRoomService chatRoomService;
-    private final DummyUserRepository dummyUserRepository;
+    private final UserRepository userRepository;
     private final ChatRoomRepository chatRoomRepository;
 
     //채팅 추가하는 메서드 (이 부분은 FK 연결 로직이 이미 올바릅니다.)
@@ -32,7 +32,7 @@ public class ChatMessagesService {
         ChatRoomEntity chatRoom = chatRoomRepository.findById(chatMessagesDto.getChatRoomId())
                 .orElseThrow(() -> new IllegalArgumentException("채팅방을 찾을 수 없습니다: " + chatMessagesDto.getChatRoomId()));
 
-        DummyEntity user = dummyUserRepository.findById(chatMessagesDto.getUserId())
+        User user = userRepository.findById(chatMessagesDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다: " + chatMessagesDto.getUserId()));
 
         ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity();

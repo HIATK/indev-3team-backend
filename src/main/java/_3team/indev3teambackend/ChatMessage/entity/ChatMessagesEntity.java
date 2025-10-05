@@ -1,7 +1,7 @@
 package _3team.indev3teambackend.ChatMessage.entity;
 
 import _3team.indev3teambackend.ChatRoom.entity.ChatRoomEntity;
-import _3team.indev3teambackend.DummyUser.EntityDummy.DummyEntity;
+import _3team.indev3teambackend.users.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class ChatMessagesEntity {
     // 2. User와의 N:1 관계 (FK: user_id)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private DummyEntity user;
+    private User user;
 
 
 //    @Column(name = "chat_messages_id",updatable = true)

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import _3team.indev3teambackend.users.User;
+import _3team.indev3teambackend.users.entity.User;
 
 // 사용자 정보 수정 DTO
 /* Response: {

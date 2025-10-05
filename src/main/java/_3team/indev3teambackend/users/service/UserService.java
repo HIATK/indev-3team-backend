@@ -1,5 +1,7 @@
-package _3team.indev3teambackend.users;
+package _3team.indev3teambackend.users.service;
 
+import _3team.indev3teambackend.users.entity.User;
+import _3team.indev3teambackend.users.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

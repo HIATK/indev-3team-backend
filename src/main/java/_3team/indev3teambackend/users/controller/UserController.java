@@ -1,5 +1,6 @@
-package _3team.indev3teambackend.users;
+package _3team.indev3teambackend.users.controller;
 
+import _3team.indev3teambackend.users.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
