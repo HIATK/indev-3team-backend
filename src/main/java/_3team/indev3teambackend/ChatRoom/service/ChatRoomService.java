@@ -3,8 +3,8 @@ package _3team.indev3teambackend.ChatRoom.service;
 import _3team.indev3teambackend.ChatRoom.dto.ChatRoomDto;
 import _3team.indev3teambackend.ChatRoom.entity.ChatRoomEntity;
 import _3team.indev3teambackend.ChatRoom.repository.ChatRoomRepository;
-import _3team.indev3teambackend.DummyUser.EntityDummy.DummyEntity; // User 엔티티 import
-import _3team.indev3teambackend.DummyUser.repository.DummyUserRepository; // User Repository import (가정)
+import _3team.indev3teambackend.users.entity.User;
+import _3team.indev3teambackend.users.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class ChatRoomService {
 
     private final ChatRoomRepository chatRoomRepository;
-    private final DummyUserRepository dummyUserRepository; // ✅ 1. DummyUserRepository 의존성 추가
+    private final UserRepository userRepository;
 
     @Autowired
-    public ChatRoomService(ChatRoomRepository chatRoomRepository, DummyUserRepository dummyUserRepository) {
+    public ChatRoomService(ChatRoomRepository chatRoomRepository, UserRepository userRepository) {
         this.chatRoomRepository = chatRoomRepository;
-        this.dummyUserRepository = dummyUserRepository; // ✅ 2. 의존성 주입 완료
+        this.userRepository = userRepository; // ✅ 2. 의존성 주입 완료
     }
 
     //엔티티를 DTO로 변환해주는 Private 메서드
@@ -41,7 +41,7 @@ public class ChatRoomService {
     public ChatRoomDto createChatRoom(Long userId){
         // ✅ 3. userId로 DummyEntity(User) 객체를 조회합니다.
         // ID가 없을 경우 RuntimeException을 발생시켜 user_id = null 저장을 방지합니다.
-        DummyEntity user = dummyUserRepository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("ID " + userId + "인 사용자가 존재하지 않습니다. 채팅방을 생성할 수 없습니다."));
 
         ChatRoomEntity chatRoomEntity = new ChatRoomEntity();

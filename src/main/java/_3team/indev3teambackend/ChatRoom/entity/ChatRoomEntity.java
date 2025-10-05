@@ -1,7 +1,7 @@
 package _3team.indev3teambackend.ChatRoom.entity;
 
 import _3team.indev3teambackend.ChatMessage.entity.ChatMessagesEntity;
-import _3team.indev3teambackend.DummyUser.EntityDummy.DummyEntity;
+import _3team.indev3teambackend.users.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class ChatRoomEntity {
     ///
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private DummyEntity user; //dummyEntity 객체로 매핑
+    private User user; //User 객체로 매핑
 
 //    @Column(name = "user_id",updatable = false)
 //    private Long userId;
