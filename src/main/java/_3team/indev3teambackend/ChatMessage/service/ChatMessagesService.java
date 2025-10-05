@@ -6,6 +6,7 @@ import _3team.indev3teambackend.ChatMessage.repository.ChatMessagesRepository;
 import _3team.indev3teambackend.ChatRoom.entity.ChatRoomEntity;
 import _3team.indev3teambackend.ChatRoom.repository.ChatRoomRepository;
 import _3team.indev3teambackend.ChatRoom.service.ChatRoomService;
+import _3team.indev3teambackend.Llama.service.AILlamaService;
 import _3team.indev3teambackend.users.entity.User;
 import _3team.indev3teambackend.users.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -25,25 +26,36 @@ public class ChatMessagesService {
     private final UserRepository userRepository;
     private final ChatRoomRepository chatRoomRepository;
 
-    //채팅 추가하는 메서드 (이 부분은 FK 연결 로직이 이미 올바릅니다.)
+    // 💡 새로 추가된 Llama 서비스 주입
+    private final AILlamaService aiLlamaService;
+
+    //채팅 추가하는 메서드 (AI 응답 로직 추가)
     @Transactional
     public ChatMessagesDto createChat(ChatMessagesDto chatMessagesDto) {
-        // ... (createChat 로직은 생략. 올바름)
+
+        // 1. FK 객체 조회 (기존 로직)
         ChatRoomEntity chatRoom = chatRoomRepository.findById(chatMessagesDto.getChatRoomId())
                 .orElseThrow(() -> new IllegalArgumentException("채팅방을 찾을 수 없습니다: " + chatMessagesDto.getChatRoomId()));
 
         User user = userRepository.findById(chatMessagesDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다: " + chatMessagesDto.getUserId()));
 
+        // 2. 사용자 메시지 Entity 생성 및 저장 (기존 로직)
         ChatMessagesEntity chatMessagesEntity = new ChatMessagesEntity();
-
         chatMessagesEntity.setChatRoom(chatRoom);
         chatMessagesEntity.setUser(user);
         chatMessagesEntity.setContent(chatMessagesDto.getContent());
         chatMessagesEntity.setCreateAt(LocalDateTime.now());
+        ChatMessagesEntity savedEntity = chatMessagesRepository.save(chatMessagesEntity);
 
-        ChatMessagesEntity saveEntity = chatMessagesRepository.save(chatMessagesEntity);
-        return ChatMessagesDto.fromEntity(saveEntity);
+        // 3. 💡 Llama Bot 응답 생성 및 저장 (가장 중요한 부분)
+        // 비동기(@Async)로 처리하여 사용자에게 즉시 응답을 반환할 수 있도록 하는 것이 좋습니다.
+        // @Async 사용 시, Spring Boot Application에 @EnableAsync 추가 필요.
+        // 여기서는 간단히 동기 호출로 구현합니다.
+        aiLlamaService.getAndSaveLlamaResponse(chatMessagesDto, chatRoom);
+
+        // 4. 저장된 사용자 메시지 DTO 반환
+        return ChatMessagesDto.fromEntity(savedEntity);
     }
 
     // ✅ 수정된 메서드: 특정 채팅방의 모든 메세지 조회

@@ -38,7 +38,7 @@ public class ChatMessagesEntity {
 //    private Long chatMessagesId;
 
     @Lob
-    @Column(name = "content",updatable = true)
+    @Column(name = "content",updatable = true,columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "created_at",updatable = false)

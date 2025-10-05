@@ -18,11 +18,12 @@ public class ChatRoomController {
         this.chatRoomService = chatRoomService;
     }
 
-    //새로운 채팅방 생성 메서드
-    //POST -> /api/chat_rooms/{userid}
-    @PostMapping("/{userId}")
-    public ChatRoomDto createChatRoom(@PathVariable Long userId)    {
-        return chatRoomService.createChatRoom(userId);
+    // 💡 새로운 채팅방 생성 메서드: Llama와의 채팅방을 생성 (POST /api/chat_rooms/llama/{userId})
+    @PostMapping("/llama/{userId}")
+    public ChatRoomDto createLlamaChatRoom(@PathVariable Long userId)    {
+        // 내부적으로 chatRoomService.createChatRoom(userId)는
+        // Llama(ID=1)와 사용자(userId) 간의 채팅방을 생성하도록 구현되어 있습니다.
+        return chatRoomService.createLlamaChatRoom(userId);
     }
 
     // 특정 사용자의 채팅방목록 조회
